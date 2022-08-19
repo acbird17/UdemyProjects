@@ -1,6 +1,7 @@
 from turtle import Turtle, Screen
 from frog import Frog
 from cars import Cars
+from scoreboard import Scoreboard
 import time
 import random
 
@@ -10,26 +11,27 @@ screen.tracer(0)
 screen.title("Frogger")
 
 frog = Frog()
-car = Cars(0,0)
-
-def random_car():
-    random_x = random.randrange(-280,280,10)
-    return (random_x, 300)
-    print(random_x)
-
-random_car()
+car = Cars()
+scoreboard = Scoreboard()
 
 screen.listen()
 screen.onkey(frog.up, "Up")
-screen.onkey(frog.down, "Down")
 
 game_is_on = True
 while game_is_on:
-    time.sleep(0.1)
+    time.sleep(frog.move_speed)
     screen.update()
+    car.create_cars()
+    car.move_cars()
     
+    for vehicle in car.all_cars:
+        if vehicle.distance(frog) < 20:
+            game_is_on = False
+            scoreboard.game_over()
 
-
+    if frog.ycor() > 290:
+        frog.reset()
+        scoreboard.point()
 
 
 

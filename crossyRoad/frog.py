@@ -12,14 +12,15 @@ class Frog(Turtle):
         self.shape("turtle")
         self.penup()
         self.setheading(90)
-        self.reset()
+        self.goto(STARTING_POSITION)
+        self.move_speed = 0.1
+        print(self.move_speed)
         
     def reset(self):
         self.goto(STARTING_POSITION)
+        self.move_speed *= 0.8
+        print(self.move_speed)
 
     def up(self):
         new_y = self.ycor() + MOVE_DISTANCE
-        self.goto(self.xcor(), new_y)
-    def down(self):
-        new_y = self.ycor() - MOVE_DISTANCE
         self.goto(self.xcor(), new_y)
