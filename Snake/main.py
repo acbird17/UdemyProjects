@@ -42,4 +42,5 @@ while game_is_on:
         elif snake.head.distance(squares) < 10:
             scoreboard.game_over()
             snake.reset()
+            
 screen.exitonclick()
