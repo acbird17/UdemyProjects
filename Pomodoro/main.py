@@ -1,5 +1,6 @@
 from tkinter import *
 import math
+
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
 RED = "#e7305b"
@@ -20,6 +21,7 @@ def reset_timer():
     check_label.config(text="")
     global reps
     reps = 0
+    
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def start_button():
     global reps
@@ -62,7 +64,6 @@ def raise_above_all(window):
     window.attributes('-topmost', 1)
     window.attributes('-topmost', 0)
 
-
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("Pomodoro")
@@ -86,21 +87,5 @@ start_timer.grid(column=0, row=2)
 
 reset_button = Button(text="Reset", command=reset_timer)
 reset_button.grid(column=2, row=2)
-
-# ✔
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 window.mainloop()
