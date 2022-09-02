@@ -14,8 +14,6 @@ except FileNotFoundError:
 else:
     words = data.to_dict(orient="records")
 
-
-
 # ---------------------------- Flashcards ------------------------------- #
 def random_word():
     global current_card, flip_timer
@@ -38,7 +36,6 @@ def is_known():
     data = pandas.DataFrame(words)
     data.to_csv("data/words_to_learn.csv", index=False)
     random_word()
-
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()

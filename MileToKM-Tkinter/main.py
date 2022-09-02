@@ -34,15 +34,4 @@ input = tkinter.Entry(width=10, text="0")
 print(input.get())
 input.grid(column=1, row=0)
 
-
-
-
-
-
-
-
-
-
-
-
 window.mainloop()
