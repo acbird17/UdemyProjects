@@ -10,8 +10,8 @@ OWM_Endpoint = "https://api.openweathermap.org/data/2.5/onecall?"
 LAT = 39.626166
 LON = -105.084861
 API = "aa4420eedeb1d9811827bbeefd8042fb"
-account_sid = "ACeb256ff925abbed78254826a50446628"
-auth_token = "062b27ac412c432c2c8a0322e7179ca8"
+ACCOUNT_SID = "ACeb256ff925abbed78254826a50446628"
+AUTH_TOKEN = "062b27ac412c432c2c8a0322e7179ca8"
 
 
 parameters = {
@@ -37,9 +37,8 @@ for hour_data in hourly_slice:
 if will_rain:
     proxy_client = TwilioHttpClient()
     proxy_client.session.proxies = {'https': os.environ['https_proxy']}
-    client = Client(account_sid, auth_token, http_client=proxy_client)
-    message = client.messages \
-        .create(
+    client = Client(ACCOUNT_SID, AUTH_TOKEN, http_client=proxy_client)
+    message = client.messages.create(
             body="It's going to rain today.",
             from_='+16188364505',
             to='+18479122545'
