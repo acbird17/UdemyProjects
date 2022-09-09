@@ -4,6 +4,9 @@ from twilio.rest import Client
 from twilio.http.http_client import TwilioHttpClient
 import datetime
 import math
+from dotenv import load_dotenv
+
+load_dotenv()
  
 STOCK_NAME = "TSLA"
 COMPANY_NAME = "Tesla Inc"
@@ -11,25 +14,19 @@ DATE = datetime.date.today()
 
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
-ALPHA_API_KEY = "PCDJ27F43LP9EWUO"
-NEWS_API_KEY = "012410f24db44111989433666ca56b6e"
-TWILIO_ACCOUNT_SID = "ACeb256ff925abbed78254826a50446628"
-TWILIO_AUTH_TOKEN = "37b036a4437168e4e7807ec6d4604948"
-TWILIO_NUMBER = '+16188364505'
-TO_NUMBER = '+18479122545'
 
 stock_params = {
     "function": "TIME_SERIES_DAILY",
     "symbol": STOCK_NAME,
     "interval": "5min",
-    "apikey": ALPHA_API_KEY,
+    "apikey": os.getenv("ALPHA_API_KEY"),
 }
 
 news_params = {
     "q": COMPANY_NAME,
     "from": DATE,
     "sortBy": "popularity",
-    "apiKey": NEWS_API_KEY,
+    "apiKey": os.getenv("NEWS_API_KEY"),
 }
 
 stock_response = requests.get(STOCK_ENDPOINT, params=stock_params)
@@ -60,12 +57,12 @@ if stock_difference > 1:
     news_slice = news_data["articles"][:3]
     format_articles = [f"{STOCK_NAME}: {up_or_down}{stock_difference}%\nHeadline: {article['title']}.\nBrief: {article['description']}" for article in news_slice]
     
-    client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+    client = Client(os.getenv("TWILIO_ACCOUNT_SID"), os.getenv("TWILIO_AUTH_TOKEN"))
     
     for article in format_articles:
         message = client.messages.create(
             body=article,
-            from_=TWILIO_NUMBER,
-            to=TO_NUMBER
+            from_=os.getenv("TWILIO_NUMBER"),
+            to=os.getenv("TO_NUMBER")
         )
     print(format_articles)
