@@ -2,6 +2,9 @@ import requests
 import os
 from twilio.rest import Client
 from twilio.http.http_client import TwilioHttpClient
+from dotenv import load_dotenv
+
+load_dotenv()
 
 proxy_client = TwilioHttpClient()
 proxy_client.session.proxies = {'https': os.environ['https_proxy']}
@@ -22,6 +25,8 @@ response = requests.get(OWM_Endpoint, params=parameters)
 response.raise_for_status()
 data = response.json()
 hourly_slice = data["hourly"][:12]
+
+print(os.getenv("TWILIO_AUTH_TOKEN"))
 
 will_rain = False
 
